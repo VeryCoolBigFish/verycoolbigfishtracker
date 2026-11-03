@@ -4,12 +4,12 @@ const VERSION = '0.2.1';
 const CACHE = 'ht-' + VERSION;
 const FILES = [
   './', 'index.html', 'manifest.webmanifest',
-  'css/app.css', 'css/charts.css', 'css/screens.css', 'css/report.css',
-  'js/util.js', 'js/db.js', 'js/crypto.js', 'js/content.js', 'js/scoring.js', 'js/model.js', 'js/sync.js', 'js/cycle.js',
-  'js/insights.js', 'js/ui.js', 'js/forms.js', 'js/charts.js', 'js/mind.js', 'js/body.js', 'js/food.js', 'js/today.js',
-  'js/report.js', 'js/settings.js', 'js/feedback.js', 'js/app.js',
-  'fonts/nunito-latin.woff2', 'fonts/nunito-latin-ext.woff2',
-  'icons/icon.svg', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png',
+  'app.css', 'charts.css', 'screens.css', 'report.css',
+  'util.js', 'db.js', 'crypto.js', 'content.js', 'scoring.js', 'model.js', 'sync.js', 'cycle.js',
+  'insights.js', 'ui.js', 'forms.js', 'charts.js', 'mind.js', 'body.js', 'food.js', 'today.js',
+  'report.js', 'settings.js', 'feedback.js', 'app.js',
+  'nunito-latin.woff2', 'nunito-latin-ext.woff2',
+  'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png',
 ];
 
 self.addEventListener('install', e => {
