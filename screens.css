@@ -1,0 +1,92 @@
+/* Today, Log and More tabs. Shared tokens and base components are in app.css. */
+
+/* --- section headings and Today hero --- */
+.sec { font-size: 1.2rem; font-weight: 800; color: var(--matcha-800); margin: 22px 6px 10px; }
+.today-top { display: flex; align-items: center; gap: 12px; }
+.today-hero { flex: 1; min-width: 0; border-radius: 28px; }
+.today-hero .greet { margin: 0; color: var(--muted); font-size: .95rem; font-weight: 800; }
+.today-hero .big { margin: 2px 0 0; font-size: 1.55rem; }
+.today-chips { gap: 8px; }
+
+/* --- module dots (identity is also carried by the text label) --- */
+.dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+.dot.mind { background: var(--matcha-700); }
+.dot.cycle { background: var(--pink-400); }
+.dot.food { background: var(--ochre); }
+
+/* --- due card: open circles to tick off --- */
+.due-list { list-style: none; margin: 0; padding: 0; }
+.due-list li + li { border-top: 2px dashed var(--line); }
+.due-item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 8px 2px; border-radius: 14px;
+  background: none; border: 0; box-shadow: none; color: var(--ink); text-align: left; font: inherit; font-weight: 800; cursor: pointer; }
+.due-item:active:not(:disabled) { transform: none; box-shadow: none; }
+.due-item .dot { width: 24px; height: 24px; background: none; border: 3px solid var(--sand-shadow); }
+.due-item .dot.cycle { border-color: var(--pink-400); }
+.due-item .dot.food { border-color: var(--ochre); }
+.due-item .dot.mind { border-color: var(--matcha-400); }
+.due-item .what { flex: 1; display: flex; flex-direction: column; }
+.due-item small { color: var(--muted); font-weight: 700; }
+.due-item .go { color: var(--muted); font-size: 1.4rem; line-height: 1; }
+.backup p { margin: 4px 0 12px; }
+
+/* --- quick-log groups --- */
+.qgroup h3 { margin: 0 2px 12px; }
+.qgroup + .qgroup { margin-top: var(--gap); }
+.qbtn .count { font-size: .74rem; font-weight: 700; color: var(--muted); margin-top: -4px; }
+
+/* --- entry rows (Today list and Log history) --- */
+.entries { display: flex; flex-direction: column; }
+.entry { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 54px; padding: 8px 4px; border-radius: 0;
+  background: none; border: 0; box-shadow: none; border-top: 2px dashed var(--line); color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
+.entry:active:not(:disabled) { transform: none; box-shadow: none; }
+.entries > .entry:first-child, .hdate + .entry { border-top: 0; }
+.entry:hover, .due-item:hover { background: var(--surface-2); }
+.entry:focus-visible, .due-item:focus-visible { outline: 2px solid var(--matcha-700); outline-offset: -2px; border-radius: 8px; }
+.entry .t { flex: none; width: 3.2em; font-variant-numeric: tabular-nums; color: var(--ink-2); font-size: .85rem; }
+.entry .what { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.entry .what small { color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hdate { margin: 16px 2px 4px; font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); }
+.hist > .hint { margin: 0 0 4px; }
+.hist > button.ghost { margin-top: 12px; width: 100%; }
+.filters { margin-bottom: 8px; }
+.filters .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+.filters .chip { flex: none; }
+
+.support-link { text-align: center; margin: 20px 0 8px; }
+
+/* --- More tab --- */
+.set .fs { margin-top: 16px; }
+.set .fs h3 { font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); margin: 0 0 8px; }
+.btnrow { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+.btnrow button { flex: 1 1 140px; }
+.listbtns { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.listbtns button { min-height: 44px; }
+
+.edlist { list-style: none; margin: 0 0 16px; padding: 0; }
+.edlist li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-top: 1px solid var(--line); }
+.edlist li:first-child { border-top: 0; }
+.edlist li.off .nm { color: var(--muted); }
+.edlist .nm { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.edlist .nm small { color: var(--ink-2); font-size: .8rem; }
+.edlist .acts { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
+.edlist .acts button { min-width: 44px; min-height: 40px; }
+
+table.preview { width: 100%; border-collapse: collapse; margin: 8px 0 12px; }
+table.preview th, table.preview td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; }
+table.preview th:first-child, table.preview thead th:first-child { text-align: left; font-weight: 500; }
+table.preview thead th { font-size: .8rem; color: var(--ink-2); font-weight: 600; }
+
+.learn details { border-top: 1px solid var(--line); padding: 4px 0; }
+.learn details:first-of-type { border-top: 0; }
+.learn summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 550; list-style: none; }
+.learn summary::-webkit-details-marker { display: none; }
+.learn summary::after { content: '+'; margin-left: auto; color: var(--ink-2); font-size: 1.2rem; }
+.learn details[open] summary::after { content: '−'; }
+.learn details p { margin: 0 0 12px; color: var(--ink-2); line-height: 1.5; }
+
+.about dd button { margin-left: 4px; }
+.about .danger-zone { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+@media (min-width: 900px) {
+  .quicklog .quick, .qgroup .quick { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+}

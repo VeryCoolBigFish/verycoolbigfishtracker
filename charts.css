@@ -1,0 +1,108 @@
+/* Charts (js/charts.js) and food forms (js/food.js). Colour tokens come from app.css; the sequential pain ramp is defined here. */
+
+:root {
+  --seq-1: #F9DDE4; --seq-2: #F0B3C2; --seq-3: #E2869E; --seq-4: #C85E7C; --seq-5: #9E3A58;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --seq-1: #4A2A35; --seq-2: #6E3A4C; --seq-3: #9A5068; --seq-4: #C77590; --seq-5: #EBA6BC; }
+}
+:root[data-theme="dark"] { --seq-1: #4A2A35; --seq-2: #6E3A4C; --seq-3: #9A5068; --seq-4: #C77590; --seq-5: #EBA6BC; }
+
+/* ---------- chart frame ---------- */
+.chart { position: relative; margin: 8px 0 4px; }
+.chart figcaption { font-size: 0.85rem; font-weight: 600; color: var(--ink-2); margin-bottom: 4px; }
+.chart .plot { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+.chart .plot text { fill: var(--ink-2); font-size: 11px; font-family: inherit; }
+.chart .plot text.small { font-size: 10px; }
+.chart .plot .xl, .chart .plot .yl { fill: var(--muted); }
+.chart .plot .dl { fill: var(--ink); font-size: 11px; }
+.chart .plot .bl { fill: var(--muted); font-size: 10px; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart .axis { stroke: var(--muted); stroke-width: 1; opacity: 0.6; }
+.chart .hit { fill: transparent; pointer-events: all; cursor: crosshair; }
+.chart .cross { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 3 3; pointer-events: none; }
+.chart .hl { pointer-events: none; }
+
+/* series: 2px lines, ≥ 8px dots with a surface ring */
+.chart .line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart .dot { stroke: var(--surface); stroke-width: 2; }
+.chart .line.s-anx { stroke: var(--s-anx); }   .chart .dot.s-anx { fill: var(--s-anx); }
+.chart .line.s-mood { stroke: var(--s-mood); } .chart .dot.s-mood { fill: var(--s-mood); }
+.chart .line.s-gi { stroke: var(--s-gi); }     .chart .dot.s-gi { fill: var(--s-gi); }
+.chart .line.s-pain { stroke: var(--s-pain); } .chart .dot.s-pain { fill: var(--s-pain); }
+.chart .line.s-sleep { stroke: var(--s-sleep); } .chart .dot.s-sleep { fill: var(--s-sleep); }
+.chart .panic-tick { fill: var(--ink-2); }
+
+/* cycle phase shading and severity bands sit behind the data */
+.chart .ph { pointer-events: none; }
+.chart .ph-menstrual { fill: var(--ph-menstrual); }
+.chart .ph-ovu { fill: var(--ph-ovu); }
+.chart .ph-luteal { fill: var(--ph-luteal); }
+.chart .band { pointer-events: none; }
+.chart .band.b0 { fill: var(--surface-2); }
+.chart .band.b1 { fill: transparent; }
+
+/* legend: swatches carry identity, text stays in ink */
+.chart-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; color: var(--ink-2); margin: 2px 0 6px; align-items: center; }
+.chart-legend .key { display: inline-flex; align-items: center; gap: 6px; }
+.sw { display: inline-block; width: 14px; height: 4px; border-radius: 2px; background: var(--muted); vertical-align: middle; margin-right: 6px; flex: none; }
+.chart-legend .sw { margin-right: 0; }
+.sw.s-anx { background: var(--s-anx); } .sw.s-mood { background: var(--s-mood); } .sw.s-gi { background: var(--s-gi); }
+.sw.s-pain { background: var(--s-pain); } .sw.s-sleep { background: var(--s-sleep); }
+.sw.panic { width: 6px; height: 12px; background: var(--ink-2); }
+.sw.ph-menstrual, .sw.ph-ovu, .sw.ph-luteal { width: 14px; height: 12px; border: 1px solid var(--line); }
+.sw.ph-menstrual { background: var(--ph-menstrual); } .sw.ph-ovu { background: var(--ph-ovu); } .sw.ph-luteal { background: var(--ph-luteal); }
+.sw.cell { width: 14px; height: 14px; border-radius: 3px; }
+.sw.pd { width: 14px; height: 4px; background: var(--pink-700); }
+
+/* tooltip */
+.chart-tip { position: absolute; z-index: 5; min-width: 120px; max-width: 220px; padding: 8px 10px; border-radius: 8px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  font-size: 0.8rem; line-height: 1.4; pointer-events: none; }
+.chart-tip[hidden] { display: none; }
+.chart-tip b { display: block; margin-bottom: 2px; }
+.chart-tip .muted { color: var(--muted); }
+
+.table-toggle { margin-top: 4px; }
+.chart-table { margin-top: 6px; font-size: 0.8rem; }
+.chart-table table { border-collapse: collapse; width: 100%; }
+.chart-table th, .chart-table td { padding: 4px 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.chart-table thead th { color: var(--ink-2); font-weight: 600; }
+
+/* horizontal bars */
+.bar-list { display: grid; gap: 6px; }
+.bar-row { display: grid; grid-template-columns: minmax(96px, 42%) 1fr auto; gap: 8px; align-items: center; font-size: 0.85rem; }
+.bar-lbl { color: var(--ink); line-height: 1.25; }
+.bar-track { height: 10px; background: var(--surface-2); border-radius: 0 4px 4px 0; overflow: hidden; }
+.bar-fill { display: block; height: 100%; border-radius: 0 4px 4px 0; background: var(--s-anx); min-width: 0; }
+.bar-fill.s-anx { background: var(--s-anx); } .bar-fill.s-mood { background: var(--s-mood); } .bar-fill.s-gi { background: var(--s-gi); }
+.bar-fill.s-pain { background: var(--s-pain); } .bar-fill.s-sleep { background: var(--s-sleep); }
+.bar-val { color: var(--ink-2); font-variant-numeric: tabular-nums; min-width: 2ch; text-align: right; }
+
+/* pain strip: sequential pink ramp, 0 = surface */
+.chart .cell.q0, .sw.q0 { fill: var(--surface); background: var(--surface); stroke: var(--line); stroke-width: 1; border: 1px solid var(--line); }
+.chart .cell.q1, .sw.q1 { fill: var(--seq-1); background: var(--seq-1); }
+.chart .cell.q2, .sw.q2 { fill: var(--seq-2); background: var(--seq-2); }
+.chart .cell.q3, .sw.q3 { fill: var(--seq-3); background: var(--seq-3); }
+.chart .cell.q4, .sw.q4 { fill: var(--seq-4); background: var(--seq-4); }
+.chart .cell.q5, .sw.q5 { fill: var(--seq-5); background: var(--seq-5); }
+.chart .pd { fill: var(--pink-700); pointer-events: none; }
+.chart .cell-hl { fill: none; stroke: var(--ink); stroke-width: 2; pointer-events: none; }
+.chart-legend.scale { gap: 4px 10px; }
+
+/* ---------- food forms ---------- */
+.food-picker { display: grid; gap: 8px; }
+.food-search { width: 100%; }
+.food-list { max-height: 240px; overflow-y: auto; }
+
+.bristol { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.bristol-card { display: grid; grid-template-columns: 60px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center; text-align: left;
+  min-height: 56px; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); }
+.bristol-card .bglyph { grid-row: span 2; width: 60px; height: 24px; }
+.bristol-card .bt { font-weight: 600; font-size: 0.9rem; }
+.bristol-card .bd { font-size: 0.78rem; color: var(--ink-2); line-height: 1.25; }
+.bristol-card.on { border-color: var(--matcha-700); background: var(--matcha-50); box-shadow: inset 0 0 0 1px var(--matcha-700); }
+.bglyph circle, .bglyph rect, .bglyph ellipse, .bglyph path { fill: var(--ochre); }
+.bglyph .crack { fill: none; stroke: var(--surface); stroke-width: 1.5; stroke-linecap: round; }
+.bglyph .wave { fill: none; stroke: var(--ochre); stroke-width: 2.5; stroke-linecap: round; }
+.grid2.toggles { margin: 8px 0; }

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#F6D3DB"/>
+  <!-- leaf: two halves meeting at the midrib, tip top-right, stem bottom-left -->
+  <path d="M136 376 C 120 250 210 140 380 128 C 372 220 330 300 136 376 Z" fill="#5E7B47"/>
+  <path d="M136 376 C 260 330 360 250 380 128 C 400 270 300 380 136 376 Z" fill="#8FAE6E"/>
+  <path d="M136 376 C 230 300 320 220 380 128" fill="none" stroke="#FAF8F2" stroke-width="12" stroke-linecap="round"/>
+  <path d="M136 376 L 104 408" stroke="#5E7B47" stroke-width="16" stroke-linecap="round"/>
+</svg>
